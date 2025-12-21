@@ -3,13 +3,20 @@
 #include<cmath>
 #include<stack>
 using namespace std;
+int power(int base, int exp)
+                    {
+                        int result = 1;
+                        for (int i = 0; i < exp; i++)
+                        result *= base;
+                        return result;
+                    }
 int main()
 {
     string postfix;
-    cout<<"Enter a postfix Expression"<endl;
+    cout<<"Enter a postfix Expression"<<endl;
     cin>>postfix;
     stack<int>st;
-    for(int i=0;i<=postfix.length();i++)
+    for(int i=0;i<postfix.length();i++)
     {
         char ch=postfix[i];
         if(isdigit(ch))
@@ -25,11 +32,24 @@ int main()
 
             switch(ch)
             {
-                case"+";
-                
+                case'+':
+                    st.push(op2+op1);
+                    break;
+                case'-':
+                    st.push(op2-op1);
+                    break;
+                case'*':
+                    st.push(op2*op1);
+                    break;
+                case'/':
+                    st.push(op2/op1);
+                    break;
+                case '^':
+                    st.push(power(op2, op1));
+                    break;
             }
         }
     }
-
-
+    cout<<st.top();
+    return 0;
 }
